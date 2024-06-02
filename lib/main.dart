@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:testapp/Screens/auth.dart';
 import 'package:testapp/Screens/new.dart';
+import 'package:testapp/ShowAllScreen.dart';
+import 'package:testapp/whatsAppUi.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  Uicompoennets(),
+      home:  wHATSaPPuI(),
     );
   }
 }

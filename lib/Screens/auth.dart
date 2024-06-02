@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:testapp/Screens/new.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -20,9 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-    
-      body: SafeArea(
+    return  SafeArea(
         child: Form(
           key: formState,
           child: Column(
@@ -140,23 +139,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               ElevatedButton(
                 onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Uicompoennets()));
                   
-                  if(formState.currentState!.validate()){
+                  // if(formState.currentState!.validate()){
                    
 
-                  }
-                  else{
-                  print("your email is : ${email}");
-                  print(password.text);
+                  // }
+                  // else{
+                  // print("your email is : ${email}");
+                  // print(password.text);
 
-                  }
+                  // }
              
         
               }, child: Text("Submit"))
             ],
           ),
         ),
-      ),
+    
     );
   }
 }
