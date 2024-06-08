@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:testapp/Screens/auth.dart';
 import 'package:testapp/Screens/new.dart';
 import 'package:testapp/ShowAllScreen.dart';
+import 'package:testapp/todoApp.dart';
 import 'package:testapp/whatsAppUi.dart';
 
 void main() {
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  wHATSaPPuI(),
+      home:  TodoApp(),
     );
   }
 }

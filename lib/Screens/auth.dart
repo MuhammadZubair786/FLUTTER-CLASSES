@@ -21,7 +21,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        leading: GestureDetector(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          
+          child: Icon(Icons.arrow_back)),
+      ),
+    
+      body: SafeArea(
         child: Form(
           key: formState,
           child: Column(
@@ -156,7 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ],
           ),
         ),
-    
+      ),
     );
   }
 }
