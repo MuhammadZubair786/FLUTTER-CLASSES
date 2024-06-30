@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "878530862066",
+    "firebase_url": "https://authapp-d95a4-default-rtdb.firebaseio.com",
     "project_id": "authapp-d95a4",
     "storage_bucket": "authapp-d95a4.appspot.com"
   },
