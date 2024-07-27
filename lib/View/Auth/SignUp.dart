@@ -17,6 +17,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+
 
   var authController = Get.put(AuthController());
 
@@ -25,8 +27,12 @@ class _SignUpState extends State<SignUp> {
       ErrorMessage("Error", "Pleaser enter email");
     } else if (passwordController.text.isEmpty) {
       ErrorMessage("Error", "Pleaser enter Password");
-    } else {
-      authController.signUpUser(emailController.text, passwordController.text);
+    }
+    else if (nameController.text.isEmpty) {
+      ErrorMessage("Error", "Pleaser enter user name");
+    }
+     else {
+      authController.signUpUser(emailController.text, passwordController.text,nameController.text);
     }
   }
 
@@ -52,6 +58,11 @@ class _SignUpState extends State<SignUp> {
                   color: Colors.red,
                   fontSize: 40.0,
                   fontFamily: "FontNew",
+                ),
+                 TextFieldWidget(
+                  hintTextdaat: "Enter Your Name",
+                  controller: nameController,
+                  width: MediaQuery.of(context).size.width * 0.96,
                 ),
                 TextFieldWidget(
                   hintTextdaat: "Enter Your Email",

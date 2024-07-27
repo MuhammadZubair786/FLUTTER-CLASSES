@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:ecom_app/SplashScreen.dart';
+import 'package:ecom_app/View/Auth/Login.dart';
 import 'package:ecom_app/View/Auth/SignUp.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home:SignUp(),
+      home:SplashScreen(),
     );
   }
 }

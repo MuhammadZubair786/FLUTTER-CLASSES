@@ -6,8 +6,15 @@ class TextFieldWidget extends StatelessWidget {
   var width;
   var placeholder;
   var hintTextdaat;
+  var passwordField;
   TextEditingController controller;
-   TextFieldWidget({super.key,required this.controller,this.width,this.placeholder,this.hintTextdaat});
+    final void Function()? onPress;
+    var show;
+   TextFieldWidget({super.key,required this.controller,this.width,this.placeholder,this.hintTextdaat,
+   this.passwordField,
+    this.onPress,
+    this.show
+   });
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +22,18 @@ class TextFieldWidget extends StatelessWidget {
       margin: EdgeInsets.only(left:10),
       width: width,
       child: TextField(
+        obscureText: passwordField==true?show:false,
         controller: controller,
         decoration: InputDecoration(
+          suffixIcon: passwordField == true ? 
+          GestureDetector(
+            onTap: (){
+              onPress!();
+            },
+            child: Icon(Icons.remove_red_eye)) :null,
           hintText: hintTextdaat,
           helperText: placeholder,
+          
           border: OutlineInputBorder(
               borderSide: BorderSide(width: 3, color: Colors.red),
               borderRadius: BorderRadius.circular(10)),
