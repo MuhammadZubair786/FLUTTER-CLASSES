@@ -1,10 +1,12 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecom_app/View/Admin/Dashboard.dart';
 import 'package:ecom_app/View/Auth/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   bool isLoading = false;
@@ -39,7 +41,8 @@ class AuthController extends GetxController {
         "name": name,
         "email": email,
         "password": password,
-        "type": "user"
+        "type": "user",
+        "block": false
       };
 
       CollectionReference users =
@@ -60,6 +63,17 @@ class AuthController extends GetxController {
     }
   }
 
+  setPrefernce(data) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("Login", true);
+    prefs.setString("userType",data["type"] );
+    prefs.setString("email",data["email"] );
+    prefs.setString("name",data["name"] );
+
+
+
+  }
+
   LoginUser(email, password) async {
     try {
       setLoading(true);
@@ -74,19 +88,25 @@ class AuthController extends GetxController {
         if (documentSnapshot.exists) {
           var data = documentSnapshot.data() as Map;
           print('USER data: ${data["type"]}');
+          if(data["block"]==true){
+            ErrorMessage("Block", "Contact For Admin");
+
+          }
         } else {
-         FirebaseFirestore.instance
-          .collection('admin')
-          .doc(userCredential.user!.uid)
-          .get()
-          .then((DocumentSnapshot documentSnapshot) {
-        if (documentSnapshot.exists) {
-           var data = documentSnapshot.data() as Map;
-          print('USER data: ${data["type"]}');
-        } else {
-          print('Document does not exist on the database');
-        }
-      });
+          FirebaseFirestore.instance
+              .collection('admin')
+              .doc(userCredential.user!.uid)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              var data = documentSnapshot.data() as Map;
+              print('USER data: ${data["type"]}');
+              setPrefernce(data);
+              Get.offAll(AdminDashboard());
+            } else {
+              print('Document does not exist on the database');
+            }
+          });
         }
       });
 

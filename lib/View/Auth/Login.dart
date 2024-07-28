@@ -35,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextFieldWidget(
                   passwordField: false,
+                  suffixIcon: Icon(Icons.email),
                   hintTextdaat: "Enter Your Email",
                   controller: emailController,
                   width: MediaQuery.of(context).size.width * 0.96,
@@ -45,6 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextFieldWidget(
                   passwordField: true,
                   show: controller.password,
+                  suffixIcon: controller.password ? 
+                  Icon(Icons.password)
+                  :
+                  Icon(Icons.remove_red_eye)
+                  
+                  ,
                   onPress: () {
                     controller.setPassword(controller.password);
                   },
