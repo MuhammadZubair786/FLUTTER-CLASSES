@@ -9,7 +9,8 @@ class ButtonStyleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return
+     Container(
       width: MediaQuery.of(context).size.width * 0.8,
       child: ElevatedButton.icon(
         style: ButtonStyle(
@@ -25,6 +26,38 @@ class ButtonStyleWidget extends StatelessWidget {
         icon: CircleAvatar(
             backgroundColor: const Color.fromARGB(255, 241, 239, 239),
             child: Icon(Icons.add_a_photo)),
+        onPressed: () {
+          onPress();
+        },
+      ),
+    );
+  }
+}
+
+
+class ButtonStyleWidget2 extends StatelessWidget {
+  var buttonLabel;
+  var width;
+  final void Function() onPress;
+  ButtonStyleWidget2({super.key, this.buttonLabel, required this.onPress,this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return
+     Container(
+      width: width,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                  side: BorderSide(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                  ))),
+          // backgroundColor: const Color.fromARGB(255, 241, 238, 238)
+        ),
+        child: Text(buttonLabel),
+      
         onPressed: () {
           onPress();
         },

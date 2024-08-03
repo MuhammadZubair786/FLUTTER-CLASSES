@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/View/Admin/Dashboard.dart';
 import 'package:ecom_app/View/Auth/Login.dart';
+import 'package:ecom_app/Widget/Messsage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,14 +23,6 @@ class AuthController extends GetxController {
     update();
   }
 
-  void ErrorMessage(err, message) {
-    Get.snackbar(err, message,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.white,
-        borderRadius: 20,
-        borderColor: err == "error" ? Colors.red : Colors.green,
-        borderWidth: 3);
-  }
 
   signUpUser(email, password, name) async {
     try {

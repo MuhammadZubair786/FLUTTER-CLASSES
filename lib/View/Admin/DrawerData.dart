@@ -2,6 +2,7 @@
 
 import 'package:ecom_app/View/Admin/Dashboard.dart';
 import 'package:ecom_app/View/Admin/UserList.dart';
+import 'package:ecom_app/View/Admin/category.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -124,9 +125,11 @@ class _DrawerDataState extends State<DrawerData> {
                   icon: Icon((Icons.contact_page)),
                   color: Colors.red,
                   iconSize: 30,
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(AddCategory());
+                  },
                 ),
-                title: Text("Contact")),
+                title: Text("Add Category")),
             ListTile(
                 leading: IconButton(
                   icon: Icon((Icons.app_blocking_rounded)),
