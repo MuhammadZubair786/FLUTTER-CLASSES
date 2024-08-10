@@ -3,6 +3,7 @@
 import 'package:ecom_app/View/Admin/DrawerData.dart';
 import 'package:ecom_app/Widget/ButtonStyle.dart';
 import 'package:ecom_app/Widget/TextField.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,9 @@ class AddCategory extends StatefulWidget {
 class _AddCategoryState extends State<AddCategory> {
   var CategoryController = TextEditingController();
   var controller = Get.put(AdminCategoryController());
+
+  var edittext = TextEditingController();
+  var selectedindex;
 
   @override
   void initState() {
@@ -96,8 +100,6 @@ class _AddCategoryState extends State<AddCategory> {
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold))),
-                                              
-                                              
                                 ],
                                 rows: List.generate(
                                     controller.CategoryList.length, (index) {
@@ -108,19 +110,27 @@ class _AddCategoryState extends State<AddCategory> {
                                         ["name"])),
                                     DataCell(Row(
                                       children: [
-                                       controller.CategoryList[index]
-                                                ["status"]== true ? 
-                                                 GestureDetector(
-                                                  onTap: (){
-                                                    controller.updateCategoryStatus(index);
-                                                  },
-                                                  child: Icon(Icons.check_box)):
-                                               GestureDetector(
-                                                  onTap: (){
-                                                    controller.updateCategoryStatus(index);
-                                                  },child: Icon(Icons.check_box_outline_blank_rounded))
-                                                 ,
-                                        SizedBox(width: 10,),
+                                        controller.CategoryList[index]
+                                                    ["status"] ==
+                                                true
+                                            ? GestureDetector(
+                                                onTap: () {
+                                                  controller
+                                                      .updateCategoryStatus(
+                                                          index, true, "");
+                                                },
+                                                child: Icon(Icons.check_box))
+                                            : GestureDetector(
+                                                onTap: () {
+                                                  controller
+                                                      .updateCategoryStatus(
+                                                          index, true, "");
+                                                },
+                                                child: Icon(Icons
+                                                    .check_box_outline_blank_rounded)),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
                                         Text(controller.CategoryList[index]
                                                 ["status"]
                                             .toString()),
@@ -136,7 +146,44 @@ class _AddCategoryState extends State<AddCategory> {
                                         SizedBox(
                                           width: 10,
                                         ),
-                                        Icon(Icons.edit),
+                                        GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedindex = index;
+                                                edittext.text = controller
+                                                    .CategoryList[index]["name"]
+                                                    .toString();
+                                              });
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (_) => AlertDialog(
+                                                        title: TextField(
+                                                          controller: edittext,
+                                                        ),
+                                                        actions: [
+                                                          ButtonStyleWidget2(
+                                                              buttonLabel:
+                                                                  "Cancel",
+                                                              onPress: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              }),
+                                                          ButtonStyleWidget2(
+                                                              buttonLabel:
+                                                                  "Update",
+                                                              onPress: () {
+                                                                controller
+                                                                    .updateCategoryStatus(
+                                                                        index,
+                                                                        false,
+                                                                         edittext.text);
+                                                                             Navigator.pop(
+                                                                    context);
+                                                              })
+                                                        ],
+                                                      ));
+                                            },
+                                            child: Icon(Icons.edit)),
                                       ],
                                     )),
                                   ]);

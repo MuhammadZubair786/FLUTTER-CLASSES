@@ -13,11 +13,11 @@ class AdminCategoryController extends GetxController {
   var isLoading = true;
   var CategoryList = [];
   CollectionReference categoryInst =
-        FirebaseFirestore.instance.collection("Category");
+      FirebaseFirestore.instance.collection("Category");
 
   getCategoryList() async {
     CategoryList.clear();
-    
+
     await categoryInst.get().then((QuerySnapshot data) {
       data.docs.forEach((element) {
         CategoryList.add(element.data());
@@ -27,22 +27,31 @@ class AdminCategoryController extends GetxController {
     update();
   }
 
-  updateCategoryStatus(index) async {
-    await categoryInst.doc(CategoryList[index]["catkey"]).update({
-      "status": !CategoryList[index]["status"]
-    });
-    CategoryList[index]["status"] = !CategoryList[index]["status"];
-    update();
+  updateCategoryStatus(index, status, name) async {
+    if (status == true) {
+      await categoryInst
+          .doc(CategoryList[index]["catkey"])
+          .update({"status": !CategoryList[index]["status"]});
+            CategoryList[index]["status"] = !CategoryList[index]["status"];
+    } else {
+      print(name.toString());
+      await categoryInst
+          .doc(CategoryList[index]["catkey"])
+          .update({"name": name});
 
+          getCategoryList();
+    }
+
+  
+    update();
   }
 
-deleteCategory(index) async {
-  print(CategoryList[index]["catkey"]);
-await  categoryInst.doc(CategoryList[index]["catkey"]).delete();
-  CategoryList.removeAt(index);
-  update();
-
-}
+  deleteCategory(index) async {
+    print(CategoryList[index]["catkey"]);
+    await categoryInst.doc(CategoryList[index]["catkey"]).delete();
+    CategoryList.removeAt(index);
+    update();
+  }
 
   addCategory(String name) async {
     if (name.isEmpty) {
@@ -51,7 +60,7 @@ await  categoryInst.doc(CategoryList[index]["catkey"]).delete();
       var key = FirebaseDatabase.instance.ref('category').push().key;
 
       var categoryOb = {"name": name, "status": true, "catkey": key};
-    
+
       await categoryInst.doc(key).set(categoryOb);
       ErrorMessage("Success", "Add New Category");
       getCategoryList();

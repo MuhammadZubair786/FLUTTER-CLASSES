@@ -9,8 +9,7 @@ class ButtonStyleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-     Container(
+    return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       child: ElevatedButton.icon(
         style: ButtonStyle(
@@ -34,20 +33,27 @@ class ButtonStyleWidget extends StatelessWidget {
   }
 }
 
-
 class ButtonStyleWidget2 extends StatelessWidget {
   var buttonLabel;
   var width;
+  var textStyle;
   final void Function() onPress;
-  ButtonStyleWidget2({super.key, this.buttonLabel, required this.onPress,this.width});
+  ButtonStyleWidget2(
+      {super.key, this.buttonLabel, required this.onPress, this.width,this.textStyle});
 
   @override
   Widget build(BuildContext context) {
-    return
-     Container(
+    return Container(
       width: width,
       child: ElevatedButton(
         style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            // If the button is pressed, return green, otherwise blue
+            if (states.contains(MaterialState.pressed)) {
+              return Colors.green;
+            }
+            return const Color.fromARGB(255, 244, 239, 239);
+          }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
@@ -56,8 +62,7 @@ class ButtonStyleWidget2 extends StatelessWidget {
                   ))),
           // backgroundColor: const Color.fromARGB(255, 241, 238, 238)
         ),
-        child: Text(buttonLabel),
-      
+        child: Text(buttonLabel,style:textStyle),
         onPressed: () {
           onPress();
         },

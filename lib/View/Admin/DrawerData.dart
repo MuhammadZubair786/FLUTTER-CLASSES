@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:ecom_app/View/Admin/Dashboard.dart';
+import 'package:ecom_app/View/Admin/Dish/dish.dart';
 import 'package:ecom_app/View/Admin/UserList.dart';
 import 'package:ecom_app/View/Admin/category.dart';
 import 'package:flutter/material.dart';
@@ -63,11 +64,11 @@ class _DrawerDataState extends State<DrawerData> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                   name.toString(),
+                    name.toString(),
                     style: TextStyle(color: Colors.white),
                   ),
                   Text(
-                   email.toString(),
+                    email.toString(),
                     style: TextStyle(color: Colors.white),
                   )
                 ],
@@ -107,16 +108,14 @@ class _DrawerDataState extends State<DrawerData> {
             ),
             GestureDetector(
               onTap: () {
-                  Get.off(UserList());
+                Get.off(UserList());
               },
               child: ListTile(
                   leading: IconButton(
                     icon: Icon((Icons.home)),
                     color: Colors.red,
                     iconSize: 30,
-                    onPressed: () {
-                    
-                    },
+                    onPressed: () {},
                   ),
                   title: Text("Users")),
             ),
@@ -135,9 +134,11 @@ class _DrawerDataState extends State<DrawerData> {
                   icon: Icon((Icons.app_blocking_rounded)),
                   color: Colors.red,
                   iconSize: 30,
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => AdminDishPage());
+                  },
                 ),
-                title: Text("About")),
+                title: Text("Dish Page")),
             ListTile(
                 leading: IconButton(
                   icon: Icon((Icons.settings_sharp)),
