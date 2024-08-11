@@ -2,6 +2,7 @@
 
 import 'package:ecom_app/View/Admin/Dashboard.dart';
 import 'package:ecom_app/View/Auth/Login.dart';
+import 'package:ecom_app/View/User/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,28 +17,26 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
-    Future.delayed(Duration(seconds: 5), (() {
+    Future.delayed(Duration(seconds: 2), (() {
       checkUser();
-      // Get.to(LoginScreen());
+
     }));
   }
 
   checkUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userCheck = prefs.getBool("Login");
-    if(userCheck!){
+    var userCheck = prefs.getBool("Login") ?? false;
+    if (userCheck) {
       var userType = prefs.getString("userType");
-      if(userType=="admin"){
+      if (userType == "admin") {
         Get.offAll(AdminDashboard());
+      } else {
+        Get.offAll(UserDashboard());
       }
-      else{
-        print("user");
-        // Get.offAll(LoginScreen());
-      }
-
-
+    } else {
+      Get.offAll(LoginScreen());
     }
   }
 

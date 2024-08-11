@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/View/Admin/Dashboard.dart';
 import 'package:ecom_app/View/Auth/Login.dart';
+import 'package:ecom_app/View/User/Home/home.dart';
 import 'package:ecom_app/Widget/Messsage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -80,10 +81,15 @@ class AuthController extends GetxController {
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
           var data = documentSnapshot.data() as Map;
+
           print('USER data: ${data["type"]}');
           if(data["block"]==true){
             ErrorMessage("Block", "Contact For Admin");
 
+          }
+          else{
+              setPrefernce(data);
+            Get.offAll(UserDashboard());
           }
         } else {
           FirebaseFirestore.instance

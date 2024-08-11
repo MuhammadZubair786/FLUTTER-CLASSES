@@ -4,6 +4,7 @@ import 'package:ecom_app/View/Admin/Dashboard.dart';
 import 'package:ecom_app/View/Admin/Dish/dish.dart';
 import 'package:ecom_app/View/Admin/UserList.dart';
 import 'package:ecom_app/View/Admin/category.dart';
+import 'package:ecom_app/View/Auth/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +33,14 @@ class _DrawerDataState extends State<DrawerData> {
     email = prefs.getString("email")!;
 
     setState(() {});
+  }
+
+  logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    Get.offAll(LoginScreen());
+
+
   }
 
   @override
@@ -152,7 +161,9 @@ class _DrawerDataState extends State<DrawerData> {
                   icon: Icon((Icons.login_outlined)),
                   color: Colors.red,
                   iconSize: 30,
-                  onPressed: () {},
+                  onPressed: () {
+                    logout();
+                  },
                 ),
                 title: Text("Log Out")),
           ],
