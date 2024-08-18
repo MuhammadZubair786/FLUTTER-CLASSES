@@ -26,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   checkUser() async {
+    // Get.offAll(LoginScreen());
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var userCheck = prefs.getBool("Login") ?? false;
     if (userCheck) {

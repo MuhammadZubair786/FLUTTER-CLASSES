@@ -25,7 +25,11 @@ class _AdminDishPageState extends State<AdminDishPage> {
   @override
   void initState() {
     super.initState();
-    getCategory();
+     WidgetsBinding.instance
+        .addPostFrameCallback((_){
+          getCategory();
+          });
+    
   }
 
   getCategory() async {
