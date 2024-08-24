@@ -6,6 +6,7 @@ import 'package:ecom_app/Widget/TextField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:image_picker/image_picker.dart';
@@ -152,11 +153,32 @@ class _AdminDishPageState extends State<AdminDishPage> {
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
+                       
                           itemCount: DishController.allDish.length,
                           itemBuilder: (context, index) {
                             return Container(
                               height: 20,
-                              child: ButtonStyleWidget2(
+                              child: 
+                              DishController.allDish[index]["selected"]==true ? 
+                              Container(
+                                margin: EdgeInsets.all(5),
+                              
+                                child: ElevatedButton(onPressed: (){
+                                   DishController.getDish(index);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:  Colors.green,
+                                  foregroundColor: Colors.white,
+                                 shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(0), // <-- Radius
+    ),
+                                ),
+                                 child: Text(DishController.allDish[index]["name"]
+                                      .toString()
+                                      .toUpperCase())),
+                              ):
+                              ButtonStyleWidget2(
+                                
                                 textStyle: TextStyle(
                                     color: const Color.fromARGB(255, 16, 17, 18),
                                     fontSize: 26),
@@ -176,6 +198,7 @@ class _AdminDishPageState extends State<AdminDishPage> {
                     Center(child: Text("No dish present in  this category"),):
                   ListView.builder(
                     shrinkWrap: true,
+                       physics: NeverScrollableScrollPhysics(),
                     itemCount: DishController.SelectDish.length,
                     itemBuilder: (context,index){
                       print(DishController.SelectDish[index]);

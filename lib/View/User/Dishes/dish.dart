@@ -43,6 +43,7 @@ class _ViewSpeficesDishState extends State<ViewSpeficesDish> {
                   : homeController.SelectDish.length == 0
                       ? Center(child: Text("No dish in this Category"))
                       : GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                           gridDelegate:
                               new SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -73,7 +74,11 @@ class _ViewSpeficesDishState extends State<ViewSpeficesDish> {
                                                 new Text(
                                                   homeController
                                                           .SelectDish[index]
-                                                      ['DishName'],
+                                                      ['DishName'].length> 14  ? homeController
+                                                          .SelectDish[index]
+                                                      ['DishName'].toString().substring(0,14) :homeController
+                                                          .SelectDish[index]
+                                                      ['DishName'] ,
                                                   style: TextStyle(
                                                       color: Color.fromARGB(
                                                           255, 243, 238, 243),

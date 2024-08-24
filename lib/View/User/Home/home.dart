@@ -2,6 +2,7 @@
 
 import 'package:ecom_app/Controller/userController/homecontroller.dart';
 import 'package:ecom_app/View/User/Dishes/dish.dart';
+import 'package:ecom_app/View/User/Home/drawer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,9 +36,14 @@ class _UserDashboardState extends State<UserDashboard> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer: Drawer(
+          child: DrawerData(),
+        ),
+        
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           title: Text("dashboard"),
+          // ,
         ),
         body: SingleChildScrollView(
           child: Center(

@@ -42,7 +42,7 @@ class AdminDishController extends GetxController {
   setImage(source) async {
     final XFile? file = await _picker.pickImage(source: source);
     if (file != null) {
-      print(file.path);
+      // print(file.path);
       image = File(file.path);
       filepath = file.path;
     }
@@ -67,7 +67,7 @@ class AdminDishController extends GetxController {
       final imagesRef = storageRef.child("dish/${filename}");
       await imagesRef.putFile(image);
       var downloadUrl = await imagesRef.getDownloadURL();
-      print(downloadUrl);
+      // print(downloadUrl);
 
       var key = FirebaseDatabase.instance.ref('Dish').push().key;
 
@@ -80,7 +80,8 @@ class AdminDishController extends GetxController {
         "DishImage": downloadUrl
       };
 
-      print(obj);
+      // print(obj);
+
 
       await DishInst.doc(key).set(obj);
       ErrorMessage("Success", "Add New Dish");
@@ -88,7 +89,12 @@ class AdminDishController extends GetxController {
   }
 
   getDish(index) async {
-    print(allDish[index]);
+    // print(allDish[index]);
+    for(var i=0;i<allDish.length;i++){
+       allDish[i]["selected"]=false;
+    }
+    allDish[index]["selected"]=true;
+    update();
     if (allDish[index]["catkey"] == "") {
       await DishInst.get().then((QuerySnapshot data) {
         final allDishData = data.docs.map((doc) => doc.data()).toList();
@@ -114,17 +120,30 @@ class AdminDishController extends GetxController {
   }
 
   getCategory() async {
+     var newList =[];
+     allDish=[];
     setLoading(true);
     await categoryInst
         .where("status", isEqualTo: true)
         .get()
-        .then((QuerySnapshot data) {
+        .then((QuerySnapshot data) {  
       final allData = data.docs.map((doc) => doc.data()).toList();
-      print(allData);
-      var newdata = {"catkey": "", "name": "All", "status": true};
+      // print(allData);
+     
+      for(var i=0;i<allData.length;i++){
+        var newdata = allData[i] as Map ;
+        newdata["selected"]=false;
+        newList.add(newdata);
+      }
+    
+      var newdata = {"catkey": "", "name": "All", "status": true,"selected":true};
 
-      allDish = allData;
-      allData.insert(0, newdata);
+      allDish.addAll(newList);
+
+      allDish.insert(0, newdata);
+      print(allDish);
+      update();
+      getDish(0);
     });
     setLoading(false);
     update();
