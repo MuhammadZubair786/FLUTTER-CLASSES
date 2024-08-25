@@ -9,6 +9,7 @@ class AddToCardController extends GetxController {
 
   userAddToCard(data) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    data["quantity"]= 1;
     userCard.add(data);
     CardList.add(data);
     update();
@@ -18,6 +19,20 @@ class AddToCardController extends GetxController {
     userCard = CardList;
     update(); 
   }
+
+  updateCard(index,status){
+    if(status=="inc"){
+    userCard[index]["quantity"]+=1; 
+    }
+    else if( userCard[index]["quantity"]!=1){
+    userCard[index]["quantity"]-=1; 
+
+    }
+    update();
+
+  }
+
+
 
 
 
